@@ -1,0 +1,28 @@
+<!-- HTML PAGE for the HOME page !-->
+
+{% extends "base.html" %}
+
+<!-- ~~~~~~Here's the TITLE~~~~~~ !-->
+{% block title %}
+CouchStories
+{% endblock %}
+
+<!-- ~~~~~~Here's the BODY~~~~~~~ !-->
+{% block body %}
+<h1 align = "center">Welcome {{usr}} to Couch Pillows! </h1>
+
+<DIV align = "center">
+<form method = "POST" action = "/create">
+  <input type = "submit" value = "CREATE" name = "create">
+</form>
+<form method = "POST" action = "/all_stories">
+  <input type = "submit" value = "CONTRIBUTE" name = "cont">
+</form>
+</DIV>
+
+<DIV>
+  Here are past stories that you have contributed to:
+</DIV>
+
+
+{% endblock %}
