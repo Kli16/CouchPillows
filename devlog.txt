@@ -5,3 +5,7 @@ created devlog
 ===========================
 linK -- 2017-10-24 2:45
 created base.html for all other html files. started on home.html
+
+===========================
+linK -- 2017-10-25 2:52
+finished home.html, pretty much done with login and halfway done with sign_up
