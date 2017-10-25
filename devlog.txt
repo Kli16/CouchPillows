@@ -1,3 +1,7 @@
+===========================
 wongA -- 2017-10-24 2:14
 created devlog
 
+===========================
+linK -- 2017-10-24 2:45
+created base.html for all other html files. started on home.html
