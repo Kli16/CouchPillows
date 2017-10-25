@@ -1,0 +1,38 @@
+<!-- HTML PAGE for the LOGIN page -->
+<!-- 
+REQUIRES: 
+ -->
+
+
+{% extends "base.html" %}
+
+<!-- ~~~~~~Here's the TITLE~~~~~~ -->
+{% block title %}
+Couch Stories Login
+{% endblock %}
+
+<!-- ~~~~~~Here's the BODY~~~~~~~ -->
+{% block body %}
+<h1 align = "center">Login to Couch Stories! </h1>
+
+<!-- ~~~~~~Login, give info~~~~ -->
+<DIV align = "center">
+<form method = "POST" action = "/login">
+  Username: <input type = "text" name = "usr"> 
+  <br>
+  Password: <input type = "password" name = "pwd">
+  <br> <br>
+  <input type = "submit" value = "LOG IN" name = "login">
+</form>
+</DIV>
+<br>
+
+<!-- ~~~~~~Redirect to SIGNUP~~~~ -->
+<DIV align = "center">
+if you don't have an account, <br>
+<form method = "POST" action = "/sign_up">
+  <input type = "submit" value = "SIGN UP" name = "signup">
+</form>
+</DIV>
+
+{% endblock %}
