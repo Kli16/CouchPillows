@@ -20,10 +20,10 @@ c.execute('''CREATE TABLE stories (
 command = "INSERT INTO stories VALUES(%d, '%s', '%s', '%s', '%s', '%s')" % (3231, 'j-doe', 'Generic Fairytale', '', 'Once upon a time', '1999-12-31 11:59 PM')
 c.execute(command)
 
-command = "INSERT INTO stories VALUES(%d, '%s', '%s', '%s', '%s', '%s)" % (4353, '[Kevin', 'luckycharms123]', "The Story that Never Ends", "This is the story that never ends", "Yes it goes on and on my friend", "2017-10-22 10:03 AM")
+command = "INSERT INTO stories VALUES(%d, '%s', '%s', '%s', '%s', '%s')" % (4353, '[Kevin, luckycharms123]', "The Story that Never Ends", "This is the story that never ends", "Yes it goes on and on my friend", "2017-10-22 10:03 AM")
 c.execute(command)
 
-command = "INSERT INTO stories VALUES(%d, '%s', '%s', '%s', '%s', '%s)" % (8972, ['Kevin'], "The Adventure of the Dead Monkey", "Wow. The monkey died oh no", "He slipped on a banana peel", "2017-10-20 5:30 PM")
+command = "INSERT INTO stories VALUES(%d, '%s', '%s', '%s', '%s', '%s')" % (8972, '[Kevin]', "The Adventure of the Dead Monkey", "Wow. The monkey died oh no", "He slipped on a banana peel", "2017-10-20 5:30 PM")
 c.execute(command)
 
 # creation and population of users table
@@ -32,7 +32,7 @@ command = '''CREATE TABLE users (
 		username TEXT UNIQUE,
 		password TEXT NOT NULL,
 		stories)'''
-c.execute()
+c.execute(command)
 
 
 password = hashlib.md5('admin').hexdigest() # hexdigest returns the encrypted string instead of location in memory
