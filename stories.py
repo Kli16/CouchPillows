@@ -35,10 +35,10 @@ def login():
         session['user'] = username
         return redirect( url_for('home') )
     if authres == BADPASSWORD:
-        flash('Wrong Password')
+        flash('You may have entered the wrong password. Try again!')
         pass
     elif authres == BADUSER:
-        flash('Wrong Username')
+        flash('You may have entered the wrong username. Try again!')
         pass
     return redirect(url_for('root'))
 
