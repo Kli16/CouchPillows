@@ -15,26 +15,18 @@ CouchStories Stories
 <!-- ~~~~~~Here's the BODY~~~~~~~ -->
 {% block body %}
 
-<!-- ~~~~~~DIRECT back to HOME~~~~~~~ -->
-<DIV>
-  <form method = "POST">
-    <input type = "submit" value = "HOME" name = "home" formaction = "/">
-    <hr>
-  </form>
-</DIV>
-
 <h1 align = "center">Contribute to Couch Stories!</h1>
 
-<!-- ~~~~~~LIST OF STORIES OF CONTRIBUTION~~~~~~ -->
+<!-- ~~~~~~LIST OF STORIES FOR CONTRIBUTION~~~~~~ -->
 <DIV align = "center">
   Here's a list of stories available for contribution:
 </DIV>
 
 <!-- a for loop to go through list of available stories -->
 <DIV>
-  <form method = "POST">
+  <form method = "POST" action = "/contribute">
   <!-- {% for s in stories %} -->
-  <input type = "submit" value = s name = s formaction = "/story">
+  <input type = "submit" value = s name = s">
   <!-- {% endfor %} -->
   </form>
 </DIV>

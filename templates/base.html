@@ -6,6 +6,17 @@
     <title> {% block title %} Couch Stories {% endblock %} </title>
   </head>
   <body>
+    <!-- HEADER MENU -->
+    {% block header %}
+    <DIV>
+      <form method = "POST">
+	<input type = "submit" value = "HOME" formaction = "/">
+	<input type = "submit" value = "PROFILE" formaction = "/profile">
+	<input type = "submit" value = "LOG OUT" formaction = "/logout">
+      </form>
+    </DIV>
+    <hr>
+    {% endblock %}
     {% block body %} An upcoming game {% endblock %} 
   </body>
 </html>

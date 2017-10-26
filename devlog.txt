@@ -29,3 +29,7 @@ made progress on createTables.py, created example database for users and stories
 ===========================
 liK -- 2017-10-26 2:34
 finished debugging stories.py to have basic login functionality, and modified login.html to be consistent.
+
+===========================
+linK -- 2017-10-26 2:54
+added header block to base and finished story.html and all_stories.html
