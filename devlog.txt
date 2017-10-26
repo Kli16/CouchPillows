@@ -13,3 +13,7 @@ finished home.html, pretty much done with login and halfway done with sign_up
 ===========================
 linK -- 2017-10-26 1:15
 finished sign_up.html, fixed home.html, started on all_stories.html
+
+===========================
+wongA -- 2017-10-26 2:23
+made progress on createTables.py, created example database for users and stories
