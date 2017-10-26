@@ -9,3 +9,7 @@ created base.html for all other html files. started on home.html
 ===========================
 linK -- 2017-10-25 2:52
 finished home.html, pretty much done with login and halfway done with sign_up
+
+===========================
+linK -- 2017-10-26 1:15
+finished sign_up.html, fixed home.html, started on all_stories.html
