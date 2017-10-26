@@ -7,8 +7,16 @@ linK -- 2017-10-24 2:45
 created base.html for all other html files. started on home.html
 
 ===========================
+liK -- 2017-10-25 2:37
+started writing stories.py, testing basic login functionality
+
+===========================
 linK -- 2017-10-25 2:52
 finished home.html, pretty much done with login and halfway done with sign_up
+
+===========================
+liK -- 2017-10-25 2:30
+continued writing stories.py
 
 ===========================
 linK -- 2017-10-26 1:15
@@ -17,3 +25,7 @@ finished sign_up.html, fixed home.html, started on all_stories.html
 ===========================
 wongA -- 2017-10-26 2:23
 made progress on createTables.py, created example database for users and stories
+
+===========================
+liK -- 2017-10-26 2:34
+finished debugging stories.py to have basic login functionality, and modified login.html to be consistent.
