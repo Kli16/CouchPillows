@@ -33,3 +33,7 @@ finished debugging stories.py to have basic login functionality, and modified lo
 ===========================
 linK -- 2017-10-26 2:54
 added header block to base and finished story.html and all_stories.html
+
+===========================
+linK -- 2017-10-26 2:54
+finished create, contribute, story, half-finished profile.html

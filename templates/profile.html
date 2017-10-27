@@ -1,9 +1,9 @@
 <!-- HTML PAGE to view your PROFILE -->
 <!-- 
 REQUIRES: 
-- title of story
-- story archive
-- contributors
+- username
+- password
+- list of stories contributed to (in string form)
  -->
 
 
@@ -11,20 +11,16 @@ REQUIRES:
 
 <!-- ~~~~~~Here's the TITLE~~~~~~ -->
 {% block title %}
-Couch Stories - {{ title }}
+{{ usr }} Profile
 {% endblock %}
 
 <!-- ~~~~~~Here's the BODY~~~~~~~ -->
 {% block body %}
 
-<h1 align = "center">{{ title }}</h1>
+<h1 align = "center">{{ usr }}</h1>
 
-<!-- contributors for loop -->
+<!--  -->
 <DIV align = "center">
-Contributors: 
-{% for c in conts %}
-{{c}},
-{% endfor %}
 </DIV>
 
 <br><br>
