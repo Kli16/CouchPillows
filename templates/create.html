@@ -1,0 +1,29 @@
+<!-- HTML PAGE to CREATE a story page -->
+<!-- 
+REQUIRES: 
+ -->
+
+
+{% extends "base.html" %}
+
+<!-- ~~~~~~Here's the TITLE~~~~~~ -->
+{% block title %}
+Couch Stories New Story
+{% endblock %}
+
+<!-- ~~~~~~Here's the BODY~~~~~~~ -->
+{% block body %}
+
+<h1 align = "center">Create A New Story</h1>
+
+<DIV align = "center">
+  <form method = "POST" id = "new">
+    TITLE: <input type = "text" name = "title">
+    <br><br>
+    <textarea name = "input" form = "id" rows = "4" cols = "50"></textarea>
+    <br><br>
+    <input type = "submit" value = "UNLEASH">
+  </form>
+</DIV>
+
+{% endblock %}
