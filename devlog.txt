@@ -41,3 +41,7 @@ finished create, contribute, story, half-finished profile.html
 ===========================
 linK -- 2017-10-27 12:50
 finished all html templates; ready to combine with stories.py
+
+===========================
+wongA -- 2017-10-27 12:50
+introduced contributions table to createTables.py
