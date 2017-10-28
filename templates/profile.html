@@ -19,15 +19,27 @@ REQUIRES:
 
 <h1 align = "center">{{ usr }}</h1>
 
-<!--  -->
+<!-- Here's a form for changing the user info  -->
+
 <DIV align = "center">
+  <b>CHANGE USERNAME AND PASSWORD:</b> <br>
+  <form method = "POST" action = "/profile">
+    username: <input type = "text" value = {{usr}} name = "usr"> <br><br>
+    password: <input type = "password" value = {{pwd}} name = "pwd"> <br>
+    confirm: <input type = "password" value = {{pwd}} name = "cpwd">
+  </form>
 </DIV>
 
 <br><br>
 
-<!-- story content -->
+<!-- Here's a list of contributed stories  -->
+
 <DIV align = "center">
-{{ archive }}
+  <b>STORIES CONTRIBUTED TO:</b> <br>
+  {% for s in stories %}
+  {{s}},   
+  {% endfor %}
 </DIV>
+
 
 {% endblock %}

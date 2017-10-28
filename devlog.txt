@@ -37,3 +37,7 @@ added header block to base and finished story.html and all_stories.html
 ===========================
 linK -- 2017-10-26 2:54
 finished create, contribute, story, half-finished profile.html
+
+===========================
+linK -- 2017-10-27 12:50
+finished all html templates; ready to combine with stories.py
