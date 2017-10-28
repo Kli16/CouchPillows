@@ -45,3 +45,8 @@ finished all html templates; ready to combine with stories.py
 ===========================
 wongA -- 2017-10-27 12:50
 introduced contributions table to createTables.py
+
+===========================
+ahmedF -- 2017-10-28 6:00 PM
+created storiesDB.py, with functions for updating stories in the database, displaying a list of stories,and viewing stories
+
