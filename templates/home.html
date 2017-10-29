@@ -26,12 +26,14 @@ CouchStories
   </form>
 </DIV>
 
-<!-- ~~~~~~CREATE AND CONTRIBUTE~~~~~~~ -->
-<DIV>
-  Here are past stories that you have contributed to: <br>
+<br><br>
+
+<!-- ~~~~~~PAST STORIES~~~~~~ -->
+<DIV align = "center">
+  Here are past stories that you have contributed to: <br><br>
   <form method = "POST" action = "/story">
     {% for s in stories %}
-    <input type = "submit" value = '{{s}}' name = 'link'> <br>
+    <input type = "submit" value = '{{s}}' name = 'link'> <br><br>
     {% endfor %}
   </form>
 </DIV>
