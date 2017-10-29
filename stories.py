@@ -89,7 +89,7 @@ def signing():
             return redirect(url_for('signup'))
 
         if password == passwordconf:
-            #DATABASE STUFF, ADD IT IN THE DATABASE
+            storiesDB.newUser(username, password)
             return redirect(url_for('root'))
     else:
         flash ("You are already signed in!")

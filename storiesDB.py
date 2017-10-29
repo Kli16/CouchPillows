@@ -1,6 +1,5 @@
 import sqlite3
 import hashlib
-import threading
 
 f = "danceballoon.db"
 
@@ -16,9 +15,15 @@ def closeDB(db):
 '''
 
 #adds a new user to the users table
-def newUser(u, p): 
-    command = "INSERT INTO users (username, password) VALUES (%s, %s)" % (u,p)
+def newUser(u, p):
+    db = sqlite3.connect("danceballoon.db")
+    c = db.cursor()
+    command = "INSERT INTO users (username, password) VALUES ('%s', '%s')" % (u,hashlib.md5(p).hexdigest())
     c.execute(command)
+    db.commit()
+    db.close()
+
+#newUser("fabiha", "ahmed")
 
 #finds user in users table
 def findUser(u):
@@ -132,7 +137,7 @@ def getAStories(u):
     db.close()
     return stories
 
-print getAStories('DW')
+#print getAStories('DW')
 
 
 #given a list of available stories, returns stories the user has contributed to
@@ -150,8 +155,8 @@ def getCStories(u):
     db.close()
     return stories
 
-print "cstories"
-print getCStories('DW')
+#print "cstories"
+#print getCStories('DW')
 
 '''
 0

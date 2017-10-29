@@ -8,13 +8,13 @@ c = db.cursor() #facilitate db ops
 
 # -- hardcoded stories and users for site testing purposes --
 
-c.execute ("DROP TABLE stories")
-c.execute ("DROP TABLE contributions")
-c.execute ("DROP TABLE users")
+#c.execute ("DROP TABLE stories")
+#c.execute ("DROP TABLE contributions")
+#c.execute ("DROP TABLE users")
 
 # creation and population of stories table
 c.execute('''CREATE TABLE stories (
-		story_ID INTEGER PRIMARY KEY,
+		story_ID INTEGER PRIMARY KEY AUTOINCREMENT,
 		title TEXT NOT NULL,
 		archive TEXT,
 		last_update TEXT NOT NULL,
