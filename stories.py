@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, session, redirect, url_for, flash
-import storiesDB
+from utils import storiesDB
 import hashlib
 import sqlite3
 
