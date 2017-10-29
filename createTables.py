@@ -15,7 +15,7 @@ c = db.cursor() #facilitate db ops
 # creation and population of stories table
 c.execute('''CREATE TABLE stories (
 		story_ID INTEGER PRIMARY KEY AUTOINCREMENT,
-		title TEXT NOT NULL,
+		title TEXT UNIQUE,
 		archive TEXT,
 		last_update TEXT NOT NULL,
 		time_stamp)''')
