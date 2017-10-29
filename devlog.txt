@@ -81,3 +81,7 @@ All the story routes work! we got all the basics down =)
 ===========================
 ahmedF, linK, wongA -- 2017-10-29 4:42 PM
 User can make changes to profile, flash messages for empty fields 
+
+===========================
+ahmedF, linK, wongA -- 2017-10-29 5:53 PM
+finished commenting, organizing, helper functionizing the storiesDB.py and fixed getAStories

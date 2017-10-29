@@ -225,9 +225,10 @@ def creating():
 @stories.route('/all_stories', methods = ['POST', 'GET'])
 def all_stories():
     if 'user' in session:
-        return render_template("all_stories.html", stories = storiesDB.getAStories(session['user']))
+        return render_template("all_stories.html",
+                               stories = storiesDB.getAStories(session['user']))
     else:
-        return render_template(url_for('root'))
+        return redirect(url_for('root'))
 
 
 #contribute: gives user last update and form for next update
@@ -242,7 +243,7 @@ def contribute():
                                title = story,
                                last_update = storiesDB.getLast(story))
     else:
-        return render_template(url_for('root'))
+        return redirect(url_for('root'))
 
     
 #contributing: updates db's contributions and stories with user input
@@ -254,13 +255,14 @@ def contributing():
     for key in request.form:
         if key != 'next':
             title = key
+            print "HERE IT IS SDJFLSKDJFKLS-" + title
     text = request.form['next']
     print "testing"
     if text == "":
         flash("Make sure you entered all fields.")
         return redirect(url_for('all_stories'))
     storiesDB.updateStory(title, session['user'], text)
-    return redirect('home')
+    return redirect(url_for('home'))
         
 
 

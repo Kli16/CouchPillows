@@ -5,7 +5,9 @@ import datetime
 
 f = "danceballoon.db"
 
-'''
+#======================================================
+# HELPER FXNS
+
 def openDB():
     db = sqlite3.connect(f)
     c = db.cursor()
@@ -14,205 +16,188 @@ def openDB():
 def closeDB(db):
     db.commit()
     db.close()
-'''
 
 def time_stamp():
     ts = time.time()  
     st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
     return st
 
+def getUID(u, c):
+    command = "SELECT user_ID FROM users WHERE username = '%s'" %u
+    for i in c.execute(command):
+        uid = i[0]
+    return uid
+
+def getSID(title, c):
+    command = "SELECT story_ID FROM stories WHERE title = '%s'" % (title)
+    for i in c.execute(command):
+        sid = i[0]
+    return sid
+
+#======================================================
+# DB FUNCTIONS
+
 
 #adds a new user to the users table
+#--------------------------------
 def newUser(u, p):
-    db = sqlite3.connect("danceballoon.db")
-    c = db.cursor()
+    db, c = openDB()
     command = "INSERT INTO users (username, password) VALUES ('%s', '%s')" % (u,hashlib.md5(p).hexdigest())
     c.execute(command)
-    db.commit()
-    db.close()
+    closeDB(db)
 
-#newUser("fabiha", "ahmed")
 
 #finds user in users table
+#---------------------------------
 def findUser(u):
-    db = sqlite3.connect("danceballoon.db")
-    c = db.cursor()
+    db, c = openDB()
     command = "SELECT username, password FROM users WHERE username = '%s'" % (u)
     answer = [0, 0]
     for i in c.execute(command):
         answer[0] = i[0]
         answer[1] = i[1]
-        '''
-        if u == i[0]:
-            if hashlib.md5(p).hexdigest() == i[1]:
-                answer = 1 
-            else:
-                answer = -2
-        else:
-            answer = -1
-        '''
-    db.close()
+    closeDB(db)
     return answer
 
+
+#updates user username & password
+#---------------------------------
 def updateUser(oldU, newU, p):
-    db = sqlite3.connect("danceballoon.db")
-    c = db.cursor()    
+    db, c = openDB()
     command = "UPDATE users SET username = '%s', password = '%s' WHERE username = '%s';" % (newU, hashlib.md5(p).hexdigest(), oldU)
     c.execute(command)
-    db.commit()
-    db.close()
+    closeDB(db)
+
     
 #adds a story to the contributions table
+#---------------------------------
 def addStory(uid, sid):
-    db = sqlite3.connect("danceballoon.db")
-    c = db.cursor()    
+    db, c = openDB()
     command = "INSERT INTO contributions VALUES (%d, %d)" % (uid,sid)
     c.execute(command)
-    db.commit()
-    db.close()
+    closeDB(db)
 
+    
 #adds a new story to the stories table
+#---------------------------------
 def newStory(u, title, text):
-    db = sqlite3.connect("danceballoon.db")
-    c = db.cursor()
-    command = "SELECT user_ID FROM users WHERE username = '%s'" %u
-    for i in c.execute(command):
-        uid = i[0]
+    db, c = openDB()
+    uid = getUID(u, c)
     time = time_stamp()
     command = "INSERT INTO stories (title,archive,last_update,time_stamp) VALUES ('%s', '%s', '%s', '%s');" % (
         title, "", text, time)
     c.execute(command)
     db.commit()
-    command = "SELECT story_ID FROM stories WHERE title = '%s'" % (title)
-    for i in c.execute(command):
-        sid = i[0]
-    db.close()
+    sid = getSID(title, c)
+    closeDB(db)
     addStory(uid, sid)
 
 
-#updates story
+#updates story's archive, last_update
+#---------------------------------
 def updateStory(title, u, text):
-    db = sqlite3.connect("danceballoon.db")
-    c = db.cursor()
+    db, c = openDB()
     time = time_stamp()
+
     #syntax for concatenating strings : ||
     #adds old last_update to archive
     command = "UPDATE stories SET archive = archive || ' ' || last_update WHERE title = '%s';" % (title)
     c.execute(command)
+
     #updates last_update to the new text
     command = "UPDATE stories SET last_update = '%s' WHERE title = '%s';" % (text, title)
     c.execute(command)
+
     #updates time stamp
     command = "UPDATE stories SET time_stamp = '%s' WHERE title = '%s';" % (time, title)
+
     #adds to the contribution table
     c.execute(command)
-    command = "SELECT user_ID from users WHERE username = '%s'" % (u)
-    for i in c.execute(command):
-        uid = i[0]
     db.commit()
-    command = "SELECT story_ID from stories WHERE title = '%s'" % (title)
-    for i in c.execute(command):
-        sid = i[0]
-    db.close()
+    uid = getUID(u, c)
+    print(uid)
+    sid = getSID(title, c)
+    print(sid)
+    closeDB(db)
     addStory(uid, sid)
 
+    
 #returns last_updated
+#---------------------------------
 def getLast(stitle):
-    db = sqlite3.connect("danceballoon.db")
-    c = db.cursor()
+    db, c = openDB()
     command = "SELECT last_update FROM stories WHERE title = '%s';" % (stitle)
     retstr = ''
     for i in c.execute(command):
         retstr = ( i[0] + ' ')
-    db.close()
+    closeDB(db)
     return retstr
-    
+
+
 #returns entire story
+#---------------------------------
 def getStory(stitle):
-    db = sqlite3.connect("danceballoon.db")
-    c = db.cursor()
+    db, c = openDB()
     command = "SELECT archive,last_update FROM stories WHERE title = '%s';" % (stitle)
     retstr = ''
     for i in c.execute(command):
         retstr = ( i[0] + ' ' + i[1])
-    db.close()
+    closeDB(db)
     return retstr
 
+
 #gets contributors for a story
+#---------------------------------
 def getConts(stitle):
-    db = sqlite3.connect("danceballoon.db")
-    c = db.cursor()
+    db, c = openDB()
     command = "SELECT username FROM users, contributions, stories WHERE users.user_ID = contributions.user_ID AND contributions.story_ID = stories.story_ID AND title = '%s';" % (stitle)
     retstr = []
     for i in c.execute(command):
         retstr.append( i[0] )
-    db.close()
+    closeDB(db)
     return retstr
-
-#print(getConts("The Adventure of the Dead Monkey"))
-        
-#print getStory(4353)
-
-#given a list of contributed stories
-def getAStories(u):
-    db = sqlite3.connect("danceballoon.db")
-    c = db.cursor()
-    stories = []
-    uid = -1
-    command = "SELECT user_ID FROM users WHERE username = '%s'" %u
-    for i in c.execute(command):
-        uid = i[0]
-    #print uid
-    command = "SELECT title FROM stories,contributions WHERE user_ID = %d AND contributions.story_ID = stories.story_ID" % uid # finds the stories the user has contributed to
-    Clist = []
-    for story in c.execute(command):
-        Clist.append(story[0])
-    #print Clist # 
-    command = "SELECT title FROM stories, contributions WHERE user_ID != %d AND contributions.story_ID = stories.story_ID" % uid #
-    NClist = []
-    for story in c.execute(command):
-        NClist.append(story[0])
-    #print NClist # 
-    for x in Clist:
-        if x in NClist:
-            NClist.remove(x)
-    stories = list(set(NClist))
-    db.close()
-    return stories
-
-#print getAStories('DW')
 
 
 #given a list of available stories, returns stories the user has contributed to
+#---------------------------------
 def getCStories(u):
-    db = sqlite3.connect("danceballoon.db")
-    c = db.cursor()
+    db, c = openDB()
     stories = []
-    uid = -1
-    command = "SELECT user_ID FROM users WHERE username = '%s'" %u
-    for i in c.execute(command):
-        uid = i[0]
-    #print uid
+    uid = getUID(u, c)
     command = "SELECT title FROM stories, contributions WHERE stories.story_ID = contributions.story_ID AND contributions.user_ID = %d;" % (uid)
     for i in c.execute(command):
-        stories += [i[0]]
-    db.close()
+        stories.append(i[0])
+    closeDB(db)
     return stories
 
-#print "cstories"
-#print getCStories('DW')
 
-'''
-0
-getAstories
-[3231, 8972]
-[4353, 4353, 8972]
-[4353]
-[]
-cstories
-0
-[u'Generic Fairytale', u'The Adventure of the Dead Monkey']
-'''
+#given a list of contributed stories
+#---------------------------------
+def getAStories(u):
 
-#db.commit()
-#db.close()
+    uStories = getCStories(u)
+    
+    db, c = openDB()
+    stories = []
+    uid = getUID(u, c)
+    
+    # gets contributed stories from others
+    command = "SELECT title FROM stories, contributions WHERE user_ID != %d AND contributions.story_ID = stories.story_ID" % uid 
+    oStories = []
+    final = []
+    for story in c.execute(command):
+        oStories.append(story[0])
+        final.append(story[0])
+
+    #removes user's contributed stories from list of other's contributed stories
+    for x in oStories:
+        if x in uStories:
+            final.remove(x)
+
+    #removes duplicates by turning into a set and back into a list
+    stories = list(set(final))
+    closeDB(db)
+    return stories
+
+
+
