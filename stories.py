@@ -76,7 +76,7 @@ def profile():
 @stories.route('/home', methods = ['POST', 'GET'])
 def home():
     if 'user' in session:
-        return render_template('home.html', )
+        return render_template('home.html')
     else:
         return redirect(url_for('root'))
 

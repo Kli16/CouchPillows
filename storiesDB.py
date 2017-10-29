@@ -114,7 +114,7 @@ def getAStories(u):
         uid = i[0]
     command = "SELECT title FROM stories;" % (uid)
     for i in c.execute(command):
-        stories += [i[0]]
+        if i[0]stories += [i[0]]
     db.close()
     return stories
 
