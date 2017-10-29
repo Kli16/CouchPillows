@@ -2,10 +2,13 @@ from flask import Flask, render_template, request, session, redirect, url_for, f
 from utils import storiesDB
 import hashlib
 import sqlite3
+import os.path
 
 stories = Flask(__name__)
 stories.secret_key = 'random'
 
+if not os.path.isfile("/data/danceballoon.db"):
+    execfile("data/createTables.py")
 
 #============================================================
 # LOG IN / LOG OUT ROUTES

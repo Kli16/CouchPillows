@@ -89,3 +89,7 @@ finished commenting, organizing, helper functionizing the storiesDB.py and fixed
 ===========================
 ahmedF, linK, wongA -- 2017-10-29 6:38 PM
 fixed periods in createStories; moved everything into correct folders
+
+===========================
+wongA -- 2017-10-29 7:09 PM
+stories.py now executes createTables.py if db does not exist
