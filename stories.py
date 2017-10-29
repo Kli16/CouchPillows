@@ -78,10 +78,12 @@ def profile():
 @stories.route('/home', methods = ['POST', 'GET'])
 def home():
     if 'user' in session:
-        storiesDB.getStory(4353)
-        '''
+#        storiesDB.getStory(4353)
         db = sqlite3.connect("danceballoon.db")
         c = db.cursor()
+        storiesDB.getStory(4353)
+        db.close()
+        '''
         command = "SELECT archive, last_update FROM stories WHERE story_ID = 4353"
         for i in c.execute(command):
             print(i[0] + ' ' + i[1])
