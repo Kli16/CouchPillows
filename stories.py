@@ -61,23 +61,24 @@ def signup():
 #        flash ("You are already signed in!")
 #CODE NOT WORKING YET
 
-@stories.route('/profile', methods=['POST'])
+@stories.route('/profile', methods=['POST', 'GET'])
 def profile():
     if 'user' in session:
-        render_template(profile.html)
+        return render_template('profile.html', usr = session['user'])
     else:
-        return render_template(url_for('root'))
+        return redirect(url_for('root'))
 
-@stories.route('/home')
+@stories.route('/home', methods = ['POST', 'GET'])
 def home():
     if 'user' in session:
         return render_template('home.html')
     else:
-        return render_template(url_for('root'))
+        return redirect(url_for('root'))
 
 @stories.route('/contribute')
 def contribute_to_stories():
     if 'user' in session:
+        #updateStory(sid, uid, text, time)
         pass
     else:
         return render_template(url_for('root'))
@@ -85,11 +86,12 @@ def contribute_to_stories():
 @stories.route('/createstory')
 def create_stories():
     if 'user' in session:
+        #newStory(sid, uid, title, text, time)
         pass
     else:
         return render_template(url_for('root'))
 
-@stories.route('/logout')
+@stories.route('/logout', methods = ['POST'])
 def logout():
     if 'user' in session:
         session.pop('user')

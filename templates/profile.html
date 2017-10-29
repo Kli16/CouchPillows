@@ -3,7 +3,6 @@
 REQUIRES: 
 - username
 - password
-- list of stories contributed to (in string form)
  -->
 
 
@@ -31,15 +30,5 @@ REQUIRES:
 </DIV>
 
 <br><br>
-
-<!-- Here's a list of contributed stories  -->
-
-<DIV align = "center">
-  <b>STORIES CONTRIBUTED TO:</b> <br>
-  {% for s in stories %}
-  {{s}},   
-  {% endfor %}
-</DIV>
-
 
 {% endblock %}
