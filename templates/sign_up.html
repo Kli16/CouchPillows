@@ -1,0 +1,41 @@
+<!-- HTML PAGE for the SIGN_UP page -->
+<!-- 
+REQUIRES: 
+ -->
+
+
+{% extends "base.html" %}
+
+<!-- ~~~~~~Here's the TITLE~~~~~~ -->
+{% block title %}
+Couch Stories Sign Up
+{% endblock %}
+
+<!-- ~~~~~~Here's the BODY~~~~~~~ -->
+{% block header %}
+<h1 align = "center">Sign Up For Couch Stories! </h1>
+{% endblock %}
+
+
+{% block body %}
+<!-- ~~~~~~Here's the DESCRIPTION~~~~~~~ -->
+<DIV align = "center">
+This is a collaborative storytelling game/website. Sign up to contribute to stories or create your own!
+</DIV>
+<br>
+
+<!-- ~~~~~~Sign Up, give info~~~~ -->
+<DIV align = "center">
+<form method = "POST" action = "/sign_up">
+  New Username: <input type = "text" name = "usr"> 
+  <br><br>
+  New Password: <input type = "password" name = "pwd">
+  <br> 
+  Confirm: <input type = "password" name = "cpwd">
+  <br><br>
+  <input type = "submit" value = "SIGN UP" name = "signup">
+</form>
+</DIV>
+<br>
+
+{% endblock %}

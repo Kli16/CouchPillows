@@ -1,0 +1,35 @@
+<!-- HTML PAGE to view your PROFILE -->
+<!-- 
+REQUIRES: 
+- username
+- password
+ -->
+
+
+{% extends "base.html" %}
+
+<!-- ~~~~~~Here's the TITLE~~~~~~ -->
+{% block title %}
+{{ usr }} Profile
+{% endblock %}
+
+<!-- ~~~~~~Here's the BODY~~~~~~~ -->
+{% block body %}
+
+<h1 align = "center">{{ usr }}</h1>
+
+<!-- Here's a form for changing the user info  -->
+
+<DIV align = "center">
+  <b>CHANGE USERNAME AND PASSWORD:</b> <br>
+  <form method = "POST" action = "/change">
+    username: <input type = "text" value = {{usr}} name = "usr"> <br><br>
+    password: <input type = "password" name = "pwd"> <br>
+    confirm: <input type = "password" name = "cpwd">
+    <input type = "submit" value = "CHANGE" name = "change">
+  </form>
+</DIV>
+
+<br><br>
+
+{% endblock %}

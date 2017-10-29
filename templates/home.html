@@ -1,0 +1,42 @@
+<!-- HTML PAGE for the HOME page -->
+<!-- 
+REQUIRES: 
+- username
+- contributed stories
+ -->
+
+
+{% extends "base.html" %}
+
+<!-- ~~~~~~Here's the TITLE~~~~~~ -->
+{% block title %}
+CouchStories
+{% endblock %}
+
+<!-- ~~~~~~Here's the BODY~~~~~~~ -->
+{% block body %}
+
+<h1 align = "center">Welcome {{usr}} to Couch Stories! </h1>
+
+<!-- ~~~~~~CREATE AND CONTRIBUTE~~~~~~~ -->
+<DIV align = "center">
+  <form method = "POST">
+    <input type = "submit" value = "CREATE" name = "cr" formaction = "/createstory">
+    <input type = "submit" value = "CONTRIBUTE" name = "cont" formaction = "/all_stories">
+  </form>
+</DIV>
+
+<!-- ~~~~~~CREATE AND CONTRIBUTE~~~~~~~ -->
+<DIV>
+  Here are past stories that you have contributed to: <br>
+  <form method = "POST" action = "/story">
+    {% for s in stories %}
+    <input type = "submit" value = '{{s}}' name = 'link'> <br>
+    {% endfor %}
+  </form>
+</DIV>
+
+<!-- a for loop to go through list of stories from usr -->
+
+
+{% endblock %}
