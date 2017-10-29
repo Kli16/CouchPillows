@@ -77,3 +77,7 @@ sign_up works!
 ===========================
 linK, ahmedF -- 2017-10-29 1:50 PM
 All the story routes work! we got all the basics down =)
+
+===========================
+ahmedF, linK, wongA -- 2017-10-29 4:42 PM
+User can make changes to profile, flash messages for empty fields 

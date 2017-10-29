@@ -82,8 +82,10 @@ def signing():
         username = request.form['usr']
         password = request.form['pwd']
         passwordconf = request.form['cpwd']
-
         taken = storiesDB.findUser(username)
+        if username == "" or  password == "":
+            flash("Enter all fields.")
+            return redirect(url_for('signup'))
         if username == taken[0]:
             flash("Username taken!")
             return redirect(url_for('signup'))
@@ -103,7 +105,7 @@ def signing():
 # REDIRECTS: root
 # RENDERS: 
 #-------------------------------------------------
-@stories.route('/logout', methods = ['POST'])
+@stories.route('/logout', methods = ['POST', 'GET'])
 def logout():
     if 'user' in session:
         session.pop('user')
@@ -151,7 +153,15 @@ def profile():
 #-------------------------------------------------
 @stories.route('/profiling', methods = ['POST'])
 def profiling():
-    return 0
+    username = request.form['usr']
+    pwd = request.form['pwd']
+    cpwd = request.form['cpwd']
+    if pwd != cpwd:
+        flash("Passwords don't match!")
+    else:
+        flash("Account details changed.")
+        storiesDB.updateUser(session['user'], username, pwd)
+    return redirect(url_for('logout'))
 
 
 
@@ -198,6 +208,9 @@ def create_stories():
 def creating():
     title = request.form['title']
     text = request.form['input']
+    if title == "" or text == "":
+        flash("Enter all fields.")
+        return redirect(url_for('create_stories'))
     storiesDB.newStory(session['user'],title, text)
     return redirect(url_for('home'))
 
@@ -221,7 +234,7 @@ def all_stories():
 # REDIRECTS: root
 # RENDERS: contribute
 #-------------------------------------------------
-@stories.route('/contribute', methods = ['POST'])
+@stories.route('/contribute', methods = ['POST', 'GET'])
 def contribute():
     if 'user' in session:
         story = request.form['link']
@@ -236,12 +249,16 @@ def contribute():
 # REDIRECTS: home
 # RENDERS: 
 #-------------------------------------------------
-@stories.route('/contributing', methods = ['POST'])
+@stories.route('/contributing', methods = ['POST', 'GET'])
 def contributing():
     for key in request.form:
         if key != 'next':
             title = key
     text = request.form['next']
+    print "testing"
+    if text == "":
+        flash("Make sure you entered all fields.")
+        return redirect(url_for('all_stories'))
     storiesDB.updateStory(title, session['user'], text)
     return redirect('home')
         

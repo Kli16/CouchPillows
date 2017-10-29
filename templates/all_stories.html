@@ -17,6 +17,17 @@ CouchStories Stories
 
 <h1 align = "center">Contribute to Couch Stories!</h1>
 
+<!-- ~~~~~~flash error messages~~~~ -->
+<DIV align = "center">
+  <font color = red>
+  {% set messages = get_flashed_messages() %}
+    {% for message in messages %}
+      {{message}} <br>
+  {% endfor %}
+  </font>
+</DIV>
+<br>
+
 <!-- ~~~~~~LIST OF STORIES FOR CONTRIBUTION~~~~~~ -->
 <DIV align = "center">
   Here's a list of stories available for contribution:

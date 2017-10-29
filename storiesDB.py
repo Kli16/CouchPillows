@@ -53,7 +53,14 @@ def findUser(u):
         '''
     db.close()
     return answer
-        
+
+def updateUser(oldU, newU, p):
+    db = sqlite3.connect("danceballoon.db")
+    c = db.cursor()    
+    command = "UPDATE users SET username = '%s', password = '%s' WHERE username = '%s';" % (newU, hashlib.md5(p).hexdigest(), oldU)
+    c.execute(command)
+    db.commit()
+    db.close()
     
 #adds a story to the contributions table
 def addStory(uid, sid):
@@ -151,6 +158,7 @@ def getAStories(u):
     db = sqlite3.connect("danceballoon.db")
     c = db.cursor()
     stories = []
+    uid = -1
     command = "SELECT user_ID FROM users WHERE username = '%s'" %u
     for i in c.execute(command):
         uid = i[0]
@@ -180,6 +188,7 @@ def getCStories(u):
     db = sqlite3.connect("danceballoon.db")
     c = db.cursor()
     stories = []
+    uid = -1
     command = "SELECT user_ID FROM users WHERE username = '%s'" %u
     for i in c.execute(command):
         uid = i[0]

@@ -14,8 +14,20 @@ Couch Stories New Story
 <!-- ~~~~~~Here's the BODY~~~~~~~ -->
 {% block body %}
 
-<h1 align = "center">Create A New Story</h1>
+<h1 align = "center">Create A New Story</h1> <br>
 
+<!-- ~~~~~~flash error messages~~~~ -->
+<DIV align = "center">
+  <font color = red>
+  {% set messages = get_flashed_messages() %}
+    {% for message in messages %}
+      {{message}} <br>
+  {% endfor %}
+  </font>
+</DIV>
+
+<br>
+<!--Form for creating new story-->
 <DIV align = "center">
   <form method = "POST" id = "new" action = "/creating">
     TITLE: <input type = "text" name = "title">
