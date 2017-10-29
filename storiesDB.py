@@ -6,11 +6,28 @@ db = sqlite3.connect(f)
 c = db.cursor()
 
 
+#adds a new user to the users table
+def newUser(u, p): 
+    command = "INSERT INTO users (username, password) VALUES (%s, %s)" % (u,p)
+    c.execute(command)
+
+#finds user in users table
+def findUser(u, p):
+    command = "SELECT username, password FROM users WHERE username = '%s'" % (u)
+    for i in c.execute(command):
+        if u == i[0]:
+            if hashlib.md5(p).hexdigest() == i[1]:
+                print(1) 
+            else:
+                print(-2)
+        else:
+            print(-1)
+        
+    
 #adds a story to the contributions table
 def addStory(uid, sid):
     command = "INSERT INTO contributions VALUES (%d, %d)" % (uid,sid)
     c.execute(command)
-
 
 #adds a new story to the stories table
 def newStory(sid, uid, title, text, time):

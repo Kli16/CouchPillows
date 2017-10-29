@@ -1,22 +1,29 @@
 from flask import Flask, render_template, request, session, redirect, url_for, flash
+import storiesDB
+import hashlib
+import sqlite3
 
 stories = Flask(__name__)
 stories.secret_key = 'random'
 
-USER = "user1"
-PASS = "pass1"
+#USER = "user1"
+#PASS = "pass1"
 
 AUTHENTICATED = 1
 BADUSER = -1
 BADPASSWORD = -2
 def authenticate(user, password):
-    if user == USER:
-        if password == PASS:
+    return 1
+    '''
+    correct = storiesDB.findUser(user)
+    if user == correct[0]:
+        if hashlib.md5(password).hexdigest() == correct[1]:
             return AUTHENTICATED
         else:
             return BADPASSWORD
     else:
         return BADUSER
+    '''
 
 @stories.route('/')
 def root():
@@ -25,7 +32,7 @@ def root():
     else:
         return render_template('login.html')
 
-@stories.route('/login', methods=['POST'])
+@stories.route('/login', methods=['POST', 'GET'])
 def login():
     username = request.form['usr']
     password = request.form['pwd']
@@ -71,6 +78,14 @@ def profile():
 @stories.route('/home', methods = ['POST', 'GET'])
 def home():
     if 'user' in session:
+        storiesDB.getStory(4353)
+        '''
+        db = sqlite3.connect("danceballoon.db")
+        c = db.cursor()
+        command = "SELECT archive, last_update FROM stories WHERE story_ID = 4353"
+        for i in c.execute(command):
+            print(i[0] + ' ' + i[1])
+        '''
         return render_template('home.html')
     else:
         return redirect(url_for('root'))

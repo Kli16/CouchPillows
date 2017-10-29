@@ -1,16 +1,39 @@
 import sqlite3
+import hashlib
+import threading
 
 f = "danceballoon.db"
 
-db = sqlite3.connect(f)
-c = db.cursor()
+#lock = threading.RLock()
+#db = sqlite3.connect(f, check_same_thread = False)
+#with lock: 
+#    c = db.cursor()
 
 
+#adds a new user to the users table
+def newUser(u, p): 
+    command = "INSERT INTO users (username, password) VALUES (%s, %s)" % (u,p)
+    c.execute(command)
+
+#finds user in users table
+def findUser(u, p):
+    answer = 0
+    command = "SELECT username, password FROM users WHERE username = '%s'" % (u)
+    for i in c.execute(command):
+        if u == i[0]:
+            if hashlib.md5(p).hexdigest() == i[1]:
+                answer = 1 
+            else:
+                answer = -2
+        else:
+            answer = -1
+    return answer
+        
+    
 #adds a story to the contributions table
 def addStory(uid, sid):
     command = "INSERT INTO contributions VALUES (%d, %d)" % (uid,sid)
     c.execute(command)
-
 
 #adds a new story to the stories table
 def newStory(sid, uid, title, text, time):
@@ -37,10 +60,13 @@ def updateStory(sid, uid, text, time):
 
 #returns entire story
 def getStory(sid):
+    db = sqlite3.connect("danceballoon.db", check_same_thread = False)
+    c = db.cursor()
     command = "SELECT archive,last_update FROM stories WHERE story_ID = %d;" % (sid)
     for i in c.execute(command):
-        return i[0] + ' ' + i[1]
-
+        print( i[0] + ' ' + i[1])
+    db.close()
+        
 #print getStory(4353)
 
 #given a list of story_IDs, returns a list of the titles of those stories
@@ -54,5 +80,5 @@ def getStories(sids):
        
 #print getStories([4353,3231])
 
-db.commit()
-db.close()
+#db.commit()
+#db.close()
