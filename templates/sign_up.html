@@ -24,6 +24,18 @@ This is a collaborative storytelling game/website. Sign up to contribute to stor
 </DIV>
 <br>
 
+<!-- ~~~~~~flash error messages~~~~ -->
+<DIV align = "center">
+  <font color = red>
+  {% set messages = get_flashed_messages() %}
+    {% for message in messages %}
+      {{message}} <br>
+  {% endfor %}
+  </font>
+</DIV>
+
+<br><br>
+
 <!-- ~~~~~~Sign Up, give info~~~~ -->
 <DIV align = "center">
 <form method = "POST" action = "/signing">

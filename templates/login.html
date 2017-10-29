@@ -18,12 +18,20 @@ Couch Stories Login
 <!-- ~~~~~~Here's the BODY~~~~~~~ -->
 {% block body %}
 
-<!-- ~~~~~~Login, give info~~~~ -->
+<!-- ~~~~~~flash error messages~~~~ -->
 <DIV align = "center">
+  <font color = red>
   {% set messages = get_flashed_messages() %}
     {% for message in messages %}
-      {{message}}
-    {% endfor %}
+      {{message}} <br>
+  {% endfor %}
+  </font>
+</DIV>
+
+<br><br>
+
+<!-- ~~~~~~Login, give info~~~~ -->
+<DIV align = "center">
 <form method = "POST" action = "/login">
   Username: <input type = "text" name = "usr">
   <br>

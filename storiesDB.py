@@ -4,11 +4,6 @@ import threading
 
 f = "danceballoon.db"
 
-#lock = threading.RLock()
-#db = sqlite3.connect(f, check_same_thread = False)
-#with lock: 
-#    c = db.cursor()
-
 '''
 def openDB():
     db = sqlite3.connect(f)

@@ -73,7 +73,7 @@ def signup():
 
     
 #signing: updates db's users
-# REDIRECTS: root
+# REDIRECTS: root, sign_up
 # RENDERS:
 #-------------------------------------------------
 @stories.route('/signing', methods = ['POST'])
@@ -82,18 +82,18 @@ def signing():
         username = request.form['usr']
         password = request.form['pwd']
         passwordconf = request.form['cpwd']
-        print(username)
-#CODE NOT WORKING YET
-#        if username #is in DATABASE:
-#            flash("Username taken!")
-#            return render_template(url_for('signup'))
-#
-#        if password == passwordconf:
-#            #DATABASE STUFF, ADD IT IN THE DATABASE
-#            return redirect(url_for('root'))
-#    else:
-#        flash ("You are already signed in!")
-#CODE NOT WORKING YET
+
+        taken = storiesDB.findUser(username)
+        if username == taken[0]:
+            flash("Username taken!")
+            return redirect(url_for('signup'))
+
+        if password == passwordconf:
+            #DATABASE STUFF, ADD IT IN THE DATABASE
+            return redirect(url_for('root'))
+    else:
+        flash ("You are already signed in!")
+    return redirect(url_for('root'))
 
 
 #logout: pops user off session

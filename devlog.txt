@@ -65,3 +65,7 @@ fixed getCStories and getAStories
 ===========================
 ahmedF, linK, wongA -- 2017-10-29 1:44 AM
 worked on linking storiesDB, htmls, and stories. finished linking all buttons on home; now must link storiesDB update functions with html forms
+
+===========================
+linK -- 2017-10-29 12:01 AM
+added comments to stories.py and organized code; started linking signup in stories.py with html and will now link to database
