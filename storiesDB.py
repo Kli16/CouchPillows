@@ -17,9 +17,14 @@ def newUser(u, p):
 
 #finds user in users table
 def findUser(u, p):
-    answer = 0
+    db = sqlite3.connect("danceballoon.db")
+    c = db.cursor()
     command = "SELECT username, password FROM users WHERE username = '%s'" % (u)
+    answer = [0, 0]
     for i in c.execute(command):
+        answer[0] = i[0]
+        answer[1] = i[1]
+        '''
         if u == i[0]:
             if hashlib.md5(p).hexdigest() == i[1]:
                 answer = 1 
@@ -27,6 +32,8 @@ def findUser(u, p):
                 answer = -2
         else:
             answer = -1
+        '''
+    db.close()
     return answer
         
     

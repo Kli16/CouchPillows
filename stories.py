@@ -13,17 +13,17 @@ AUTHENTICATED = 1
 BADUSER = -1
 BADPASSWORD = -2
 def authenticate(user, password):
-    return 1
-    '''
-    correct = storiesDB.findUser(user)
+#    return storiesDB.findUser(user, password)
+    correct = storiesDB.findUser(user, password)
     if user == correct[0]:
         if hashlib.md5(password).hexdigest() == correct[1]:
+            print("YES")
             return AUTHENTICATED
         else:
             return BADPASSWORD
     else:
         return BADUSER
-    '''
+ 
 
 @stories.route('/')
 def root():
@@ -78,16 +78,6 @@ def profile():
 @stories.route('/home', methods = ['POST', 'GET'])
 def home():
     if 'user' in session:
-#        storiesDB.getStory(4353)
-        db = sqlite3.connect("danceballoon.db")
-        c = db.cursor()
-        storiesDB.getStory(4353)
-        db.close()
-        '''
-        command = "SELECT archive, last_update FROM stories WHERE story_ID = 4353"
-        for i in c.execute(command):
-            print(i[0] + ' ' + i[1])
-        '''
         return render_template('home.html')
     else:
         return redirect(url_for('root'))
