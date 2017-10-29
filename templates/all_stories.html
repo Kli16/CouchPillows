@@ -22,11 +22,13 @@ CouchStories Stories
   Here's a list of stories available for contribution:
 </DIV>
 
+<br>
+
 <!-- a for loop to go through list of available stories -->
-<DIV>
+<DIV align = "center">
   <form method = "POST" action = "/contribute">
   {% for s in stories %}
-  <input type = "submit" value = '{{s}}' name = "link">
+  <input type = "submit" value = '{{s}}' name = "link"> <br><br>
   {% endfor %}
   </form>
 </DIV>
