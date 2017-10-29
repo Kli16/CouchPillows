@@ -57,3 +57,7 @@ started linking storiesDB and stories: login checking users
 ===========================
 ahmedF, linK, wongA -- 2017-10-28 11:57 PM
 working on methods to retrieve contributed and non-contributed stories. noncontributed stories not yet working
+
+===========================
+wongA -- 2017-10-29 2017-10-29 12:30 AM
+fixed getCStories and getAStories
