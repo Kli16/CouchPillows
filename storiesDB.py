@@ -94,37 +94,21 @@ def getAStories(u):
     command = "SELECT user_ID FROM users WHERE username = '%s'" %u
     for i in c.execute(command):
         uid = i[0]
-    print uid
-    command = "SELECT story_ID FROM contributions WHERE user_ID = %d" % uid # finds the stories the user has contributed to
+    #print uid
+    command = "SELECT title FROM stories,contributions WHERE user_ID = %d AND contributions.story_ID = stories.story_ID" % uid # finds the stories the user has contributed to
     Clist = []
     for story in c.execute(command):
         Clist.append(story[0])
-    print Clist # 
-    command = "SELECT story_ID FROM contributions WHERE user_ID != %d" % uid #
+    #print Clist # 
+    command = "SELECT title FROM stories, contributions WHERE user_ID != %d AND contributions.story_ID = stories.story_ID" % uid #
     NClist = []
     for story in c.execute(command):
         NClist.append(story[0])
-    print NClist # 
+    #print NClist # 
     for x in Clist:
         if x in NClist:
             NClist.remove(x)
     stories = list(set(NClist))
-    '''
-    c.execute("SELECT story_ID FROM contributions WHERE user_ID = 0")
-    Clist = []
-    for tuple in  c.fetchall():
-        Clist.append(tuple[0])
-    print Clist # [3231, 8972]
-    c.execute("SELECT story_ID FROM contributions WHERE user_ID != 0")
-    NClist = []
-    for tuple in  c.fetchall():
-        NClist.append(tuple[0])
-    print NClist # [4353, 4353, 8972]
-    for x in Clist:
-        if x in NClist:
-            NClist.remove(x)
-    print list(set(NClist)) # [4353]
-    '''
     db.close()
     return stories
 
@@ -139,7 +123,7 @@ def getCStories(u):
     command = "SELECT user_ID FROM users WHERE username = '%s'" %u
     for i in c.execute(command):
         uid = i[0]
-    print uid
+    #print uid
     command = "SELECT title FROM stories, contributions WHERE stories.story_ID = contributions.story_ID AND contributions.user_ID = %d;" % (uid)
     for i in c.execute(command):
         stories += [i[0]]
