@@ -87,6 +87,51 @@ def getStory(sid):
 #print getStory(4353)
 
 #given a list of contributed stories
+def getAStories(u):
+    db = sqlite3.connect("danceballoon.db")
+    c = db.cursor()
+    stories = []
+    command = "SELECT user_ID FROM users WHERE username = '%s'" %u
+    for i in c.execute(command):
+        uid = i[0]
+    print uid
+    command = "SELECT story_ID FROM contributions WHERE user_ID = %d" % uid # finds the stories the user has contributed to
+    Clist = []
+    for story in c.execute(command):
+        Clist.append(story[0])
+    print Clist # 
+    command = "SELECT story_ID FROM contributions WHERE user_ID != %d" % uid #
+    NClist = []
+    for story in c.execute(command):
+        NClist.append(story[0])
+    print NClist # 
+    for x in Clist:
+        if x in NClist:
+            NClist.remove(x)
+    stories = list(set(NClist))
+    '''
+    c.execute("SELECT story_ID FROM contributions WHERE user_ID = 0")
+    Clist = []
+    for tuple in  c.fetchall():
+        Clist.append(tuple[0])
+    print Clist # [3231, 8972]
+    c.execute("SELECT story_ID FROM contributions WHERE user_ID != 0")
+    NClist = []
+    for tuple in  c.fetchall():
+        NClist.append(tuple[0])
+    print NClist # [4353, 4353, 8972]
+    for x in Clist:
+        if x in NClist:
+            NClist.remove(x)
+    print list(set(NClist)) # [4353]
+    '''
+    db.close()
+    return stories
+
+print getAStories('DW')
+
+
+#given a list of available stories, returns stories the user has contributed to
 def getCStories(u):
     db = sqlite3.connect("danceballoon.db")
     c = db.cursor()
@@ -94,33 +139,27 @@ def getCStories(u):
     command = "SELECT user_ID FROM users WHERE username = '%s'" %u
     for i in c.execute(command):
         uid = i[0]
+    print uid
     command = "SELECT title FROM stories, contributions WHERE stories.story_ID = contributions.story_ID AND contributions.user_ID = %d;" % (uid)
     for i in c.execute(command):
         stories += [i[0]]
     db.close()
     return stories
 
+print "cstories"
 print getCStories('DW')
 
-
-#given a list of available stories
-def getAStories(u):
-    db = sqlite3.connect("danceballoon.db")
-    c = db.cursor()
-    cStories = getCStories(u)
-    stories = []
-    command = "SELECT user_ID FROM users WHERE username = '%s'" %u
-    for i in c.execute(command):
-        uid = i[0]
-    command = "SELECT title FROM stories;" % (uid)
-    for i in c.execute(command):
-        if i[0]stories += [i[0]]
-    db.close()
-    return stories
-
-#print getAStories('DW')
-       
-#print getStories([4353,3231])
+'''
+0
+getAstories
+[3231, 8972]
+[4353, 4353, 8972]
+[4353]
+[]
+cstories
+0
+[u'Generic Fairytale', u'The Adventure of the Dead Monkey']
+'''
 
 #db.commit()
 #db.close()

@@ -8,6 +8,10 @@ c = db.cursor() #facilitate db ops
 
 # -- hardcoded stories and users for site testing purposes --
 
+c.execute ("DROP TABLE stories")
+c.execute ("DROP TABLE contributions")
+c.execute ("DROP TABLE users")
+
 # creation and population of stories table
 c.execute('''CREATE TABLE stories (
 		story_ID INTEGER PRIMARY KEY,
@@ -64,3 +68,28 @@ c.execute("INSERT INTO contributions VALUES(2, 8972)")
 
 db.commit()
 db.close()
+
+
+'''
+print "SELECT stories.story_ID FROM stories, contributions WHERE contributions.story_ID != stories.story_ID AND contributions.user_ID = 0"
+c.execute("SELECT stories.story_ID FROM stories, contributions WHERE contributions.story_ID != stories.story_ID AND contributions.user_ID = 0")
+Lset = []
+for tuple in c.fetchall():
+    Lset.append(tuple[0])
+print "before setting"
+print Lset
+Lset = list(set(Lset))
+print "after setting"
+print Lset
+db.commit()
+db.close()
+'''
+'''
+SELECT story_ID FROM contributions WHERE user_ID = 0
+
+SELECT stories.story_ID FROM stories, contributions WHERE contributions.story_ID != stories.story_ID AND contributions.user_ID = 0
+before setting
+[3231, 4353, 4353, 8972]
+after setting
+[4353, 8972, 3231]
+'''
