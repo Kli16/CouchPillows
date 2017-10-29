@@ -13,11 +13,9 @@ AUTHENTICATED = 1
 BADUSER = -1
 BADPASSWORD = -2
 def authenticate(user, password):
-#    return storiesDB.findUser(user, password)
     correct = storiesDB.findUser(user, password)
     if user == correct[0]:
         if hashlib.md5(password).hexdigest() == correct[1]:
-            print("YES")
             return AUTHENTICATED
         else:
             return BADPASSWORD
@@ -78,7 +76,7 @@ def profile():
 @stories.route('/home', methods = ['POST', 'GET'])
 def home():
     if 'user' in session:
-        return render_template('home.html')
+        return render_template('home.html', )
     else:
         return redirect(url_for('root'))
 

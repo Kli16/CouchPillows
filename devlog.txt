@@ -53,3 +53,7 @@ created storiesDB.py, with functions for updating stories in the database, displ
 ===========================
 ahmedF, linK, wongA -- 2017-10-28 10:41 PM
 started linking storiesDB and stories: login checking users
+
+===========================
+ahmedF, linK, wongA -- 2017-10-28 11:57 PM
+working on methods to retrieve contributed and non-contributed stories. noncontributed stories not yet working

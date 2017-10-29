@@ -9,6 +9,16 @@ f = "danceballoon.db"
 #with lock: 
 #    c = db.cursor()
 
+'''
+def openDB():
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    return db, c
+
+def closeDB(db):
+    db.commit()
+    db.close()
+'''
 
 #adds a new user to the users table
 def newUser(u, p): 
@@ -76,14 +86,39 @@ def getStory(sid):
         
 #print getStory(4353)
 
-#given a list of story_IDs, returns a list of the titles of those stories
-def getStories(sids):
+#given a list of contributed stories
+def getCStories(u):
+    db = sqlite3.connect("danceballoon.db")
+    c = db.cursor()
     stories = []
-    for sid in sids:
-        command = "SELECT title FROM stories WHERE story_ID = %d;" % (sid)
-        for i in c.execute(command):
-            stories += [i[0]]
+    command = "SELECT user_ID FROM users WHERE username = '%s'" %u
+    for i in c.execute(command):
+        uid = i[0]
+    command = "SELECT title FROM stories, contributions WHERE stories.story_ID = contributions.story_ID AND contributions.user_ID = %d;" % (uid)
+    for i in c.execute(command):
+        stories += [i[0]]
+    db.close()
     return stories
+
+print getCStories('DW')
+
+
+#given a list of available stories
+def getAStories(u):
+    db = sqlite3.connect("danceballoon.db")
+    c = db.cursor()
+    cStories = getCStories(u)
+    stories = []
+    command = "SELECT user_ID FROM users WHERE username = '%s'" %u
+    for i in c.execute(command):
+        uid = i[0]
+    command = "SELECT title FROM stories;" % (uid)
+    for i in c.execute(command):
+        stories += [i[0]]
+    db.close()
+    return stories
+
+#print getAStories('DW')
        
 #print getStories([4353,3231])
 
