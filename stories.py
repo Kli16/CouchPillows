@@ -211,6 +211,9 @@ def creating():
     if title == "" or text == "":
         flash("Enter all fields.")
         return redirect(url_for('create_stories'))
+    if title == storiesDB.findStory(title):
+        flash("Story title taken.")
+        return redirect(url_for('create_stories'))
     storiesDB.newStory(session['user'],title, text)
     return redirect(url_for('home'))
 

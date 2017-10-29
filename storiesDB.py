@@ -34,8 +34,9 @@ def getSID(title, c):
         sid = i[0]
     return sid
 
+
 #======================================================
-# DB FUNCTIONS
+# USERS DB FUNCTIONS
 
 
 #adds a new user to the users table
@@ -47,7 +48,7 @@ def newUser(u, p):
     closeDB(db)
 
 
-#finds user in users table
+#finds user in users table; returns username and password if existing; null else
 #---------------------------------
 def findUser(u):
     db, c = openDB()
@@ -68,6 +69,22 @@ def updateUser(oldU, newU, p):
     c.execute(command)
     closeDB(db)
 
+
+    
+#======================================================
+# STORIES DB FUNCTIONS
+    
+    
+#finds story and returns title; null if nonexisting
+#---------------------------------
+def findStory(stitle):
+    db, c = openDB()
+    command = "SELECT title FROM stories WHERE title = '%s'" % (stitle)
+    answer = ""
+    for i in c.execute(command):
+        answer = i[0]
+    closeDB(db)
+    return answer
     
 #adds a story to the contributions table
 #---------------------------------
@@ -134,7 +151,7 @@ def getLast(stitle):
     return retstr
 
 
-#returns entire story
+#returns entire story (archive + last_updated)
 #---------------------------------
 def getStory(stitle):
     db, c = openDB()
@@ -144,6 +161,10 @@ def getStory(stitle):
         retstr = ( i[0] + ' ' + i[1])
     closeDB(db)
     return retstr
+
+
+#======================================================
+# CONTRIBUTIONS DB FUNCTIONS
 
 
 #gets contributors for a story
@@ -158,7 +179,7 @@ def getConts(stitle):
     return retstr
 
 
-#given a list of available stories, returns stories the user has contributed to
+# gets stories user has contributed to
 #---------------------------------
 def getCStories(u):
     db, c = openDB()
@@ -171,7 +192,7 @@ def getCStories(u):
     return stories
 
 
-#given a list of contributed stories
+## gets stories user has NOT contributed to
 #---------------------------------
 def getAStories(u):
 
