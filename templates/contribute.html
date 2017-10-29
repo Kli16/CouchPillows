@@ -33,11 +33,11 @@ Couch Stories - {{ title }}
       </td>
       <td align = "center">
 	<br>
-	<textarea name="next" form="input" rows="4" cols="20"></textarea>
-	<form method = "POST" action = "/contribute" id = "input">
+	<form method = "POST" action = "/contributing" id = "input">
+	  <textarea name="next" form_id="input" rows="4" cols="20"></textarea>
 	  <!--	  <input type = "text" name = "nextUpdate"> -->
 	  <br>
-	  <input type = "submit" value = "SUBMIT">
+	  <input type = "submit" value = "SUBMIT" name = '{{title}}'>
 	</form>
       </td>
     </tr>

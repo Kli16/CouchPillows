@@ -72,7 +72,7 @@ def signup():
         return redirect(url_for('home'))
 
     
-#signing: updates db's users
+#signing: given u & p from form, checks if username exists, updates db's users
 # REDIRECTS: root, sign_up
 # RENDERS:
 #-------------------------------------------------
@@ -91,6 +91,9 @@ def signing():
         if password == passwordconf:
             storiesDB.newUser(username, password)
             return redirect(url_for('root'))
+        else:
+            flash("Passwords don't match!")
+            return redirect(url_for('signup'))
     else:
         flash ("You are already signed in!")
     return redirect(url_for('root'))
@@ -193,8 +196,11 @@ def create_stories():
 #-------------------------------------------------
 @stories.route('/creating', methods = ['POST'])
 def creating():
-    return 0
-    
+    title = request.form['title']
+    text = request.form['input']
+    storiesDB.newStory(session['user'],title, text)
+    return redirect(url_for('home'))
+
 
 #============================================================    
 # CONTRIBUTE ROUTES
@@ -232,7 +238,12 @@ def contribute():
 #-------------------------------------------------
 @stories.route('/contributing', methods = ['POST'])
 def contributing():
-    return 0
+    for key in request.form:
+        if key != 'next':
+            title = key
+    text = request.form['next']
+    storiesDB.updateStory(title, session['user'], text)
+    return redirect('home')
         
 
 

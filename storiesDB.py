@@ -1,5 +1,7 @@
 import sqlite3
 import hashlib
+import time
+import datetime
 
 f = "danceballoon.db"
 
@@ -13,6 +15,12 @@ def closeDB(db):
     db.commit()
     db.close()
 '''
+
+def time_stamp():
+    ts = time.time()  
+    st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+    return st
+
 
 #adds a new user to the users table
 def newUser(u, p):
@@ -49,29 +57,56 @@ def findUser(u):
     
 #adds a story to the contributions table
 def addStory(uid, sid):
+    db = sqlite3.connect("danceballoon.db")
+    c = db.cursor()    
     command = "INSERT INTO contributions VALUES (%d, %d)" % (uid,sid)
     c.execute(command)
+    db.commit()
+    db.close()
 
 #adds a new story to the stories table
-def newStory(sid, uid, title, text, time):
-    addStory(uid,sid)
-    command = "INSERT INTO stories VALUES (%d, '%s', '%s', '%s', '%s');" % (        sid, title, "", text, time)
+def newStory(u, title, text):
+    db = sqlite3.connect("danceballoon.db")
+    c = db.cursor()
+    command = "SELECT user_ID FROM users WHERE username = '%s'" %u
+    for i in c.execute(command):
+        uid = i[0]
+    time = time_stamp()
+    command = "INSERT INTO stories (title,archive,last_update,time_stamp) VALUES ('%s', '%s', '%s', '%s');" % (
+        title, "", text, time)
     c.execute(command)
+    db.commit()
+    command = "SELECT story_ID FROM stories WHERE title = '%s'" % (title)
+    for i in c.execute(command):
+        sid = i[0]
+    db.close()
+    addStory(uid, sid)
 
 
 #updates story
-def updateStory(sid, uid, text, time):
+def updateStory(title, u, text):
+    db = sqlite3.connect("danceballoon.db")
+    c = db.cursor()
+    time = time_stamp()
     #syntax for concatenating strings : ||
     #adds old last_update to archive
-    command = "UPDATE stories SET archive = archive || ' ' || last_update WHERE story_ID = %s;" % (sid)
+    command = "UPDATE stories SET archive = archive || ' ' || last_update WHERE title = '%s';" % (title)
     c.execute(command)
     #updates last_update to the new text
-    command = "UPDATE stories SET last_update = '%s' WHERE story_ID = %s;" % (text, sid)
+    command = "UPDATE stories SET last_update = '%s' WHERE title = '%s';" % (text, title)
     c.execute(command)
     #updates time stamp
-    command = "UPDATE stories SET time_stamp = '%s' WHERE story_ID = %s;" % (time, sid)
+    command = "UPDATE stories SET time_stamp = '%s' WHERE title = '%s';" % (time, title)
     #adds to the contribution table
     c.execute(command)
+    command = "SELECT user_ID from users WHERE username = '%s'" % (u)
+    for i in c.execute(command):
+        uid = i[0]
+    db.commit()
+    command = "SELECT story_ID from stories WHERE title = '%s'" % (title)
+    for i in c.execute(command):
+        sid = i[0]
+    db.close()
     addStory(uid, sid)
 
 #returns last_updated

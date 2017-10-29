@@ -73,3 +73,7 @@ added comments to stories.py and organized code; started linking signup in stori
 ===========================
 linK -- 2017-10-29 12:24 PM
 sign_up works!
+
+===========================
+linK, ahmedF -- 2017-10-29 1:50 PM
+All the story routes work! we got all the basics down =)
