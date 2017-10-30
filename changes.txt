@@ -1,0 +1,29 @@
+List of Changes
+- acc.html renamed to profile.html
+- stored passwords in users table are now hashed
+- archive and last_update functions in stories table were switched
+- split getStories
+- getCStories() returns list of contributed stories 
+- getAStories() returns list of available stories for contributions
+- /login redirects to / which renders login.html
+- openStories() renamed to allStories()
+
+List of Additions
+
+- findStory() to return the title of a story given its ID
+- getLast() to return a story's last update
+- getConts() to find a story's contributors
+- contributions table containing which user contributed to which story
+- profile.html and editing account details
+- made createTables its own file
+- helper functions for interacting with the database
+- stories.py executes createTables.py if danceballoon.db does not exist
+- /contributing, /signing, /profiling, /creating routes
+- base.html containing header with home, profile, and logout buttons
+
+List of Removals
+- search bar function
+- list of contributions in users table
+- list of contributors in stories table
+- tag feature
+- css style
