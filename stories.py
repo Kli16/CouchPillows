@@ -261,9 +261,7 @@ def contributing():
     for key in request.form:
         if key != 'next':
             title = key
-            print "HERE IT IS SDJFLSKDJFKLS-" + title
     text = request.form['next']
-    print "testing"
     if text == "":
         flash("Make sure you entered all fields.")
         return redirect(url_for('all_stories'))
