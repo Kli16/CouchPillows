@@ -18,17 +18,19 @@ def closeDB(db):
     db.close()
 
 def time_stamp():
-    ts = time.time()  
+    ts = time.time()
     st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
     return st
 
 def getUID(u, c):
+    uid = -1
     command = "SELECT user_ID FROM users WHERE username = '%s'" %u
     for i in c.execute(command):
         uid = i[0]
     return uid
 
 def getSID(title, c):
+    sid = -1
     command = "SELECT story_ID FROM stories WHERE title = '%s'" % (title)
     for i in c.execute(command):
         sid = i[0]
@@ -70,11 +72,11 @@ def updateUser(oldU, newU, p):
     closeDB(db)
 
 
-    
+
 #======================================================
 # STORIES DB FUNCTIONS
-    
-    
+
+
 #finds story and returns title; null if nonexisting
 #---------------------------------
 def findStory(stitle):
@@ -85,7 +87,7 @@ def findStory(stitle):
         answer = i[0]
     closeDB(db)
     return answer
-    
+
 #adds a story to the contributions table
 #---------------------------------
 def addStory(uid, sid):
@@ -94,7 +96,7 @@ def addStory(uid, sid):
     c.execute(command)
     closeDB(db)
 
-    
+
 #adds a new story to the stories table
 #---------------------------------
 def newStory(u, title, text):
@@ -138,7 +140,7 @@ def updateStory(title, u, text):
     closeDB(db)
     addStory(uid, sid)
 
-    
+
 #returns last_updated
 #---------------------------------
 def getLast(stitle):
@@ -197,13 +199,13 @@ def getCStories(u):
 def getAStories(u):
 
     uStories = getCStories(u)
-    
+
     db, c = openDB()
     stories = []
     uid = getUID(u, c)
-    
+
     # gets contributed stories from others
-    command = "SELECT title FROM stories, contributions WHERE user_ID != %d AND contributions.story_ID = stories.story_ID" % uid 
+    command = "SELECT title FROM stories, contributions WHERE user_ID != %d AND contributions.story_ID = stories.story_ID" % uid
     oStories = []
     final = []
     for story in c.execute(command):
@@ -219,6 +221,3 @@ def getAStories(u):
     stories = list(set(final))
     closeDB(db)
     return stories
-
-
-

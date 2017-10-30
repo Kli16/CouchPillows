@@ -93,3 +93,7 @@ fixed periods in createStories; moved everything into correct folders
 ===========================
 wongA -- 2017-10-29 7:09 PM
 stories.py now executes createTables.py if db does not exist
+
+===========================
+liK -- 2017-10-30 7:21 AM
+debugged, edited base.html
